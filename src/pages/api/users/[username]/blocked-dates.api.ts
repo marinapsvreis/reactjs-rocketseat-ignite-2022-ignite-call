@@ -59,6 +59,8 @@ export default async function handler(
       AND DATE_FORMAT(S.date, "%Y-%m") = ${`${year}-${padMonth}`}
 
     GROUP BY day, size
+
+    HAVING amount >= size
   `
 
   const blockedDates = blockedDatesRaw.map((item) => item.day)
