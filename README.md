@@ -38,7 +38,13 @@ obs: It is necessary to create an .env file with the necessary environment varia
 obs2: It is also necessary to pay attention to migrations and schema configurations according to the bank you are going to use.
 
 
+## ❗Known issues:
+
+- In a production environment, checking the hours that have passed is not converted to local time. I intend to fix this soon.
+
+
 ## 🖥 Project Images
 
 ![preview](./IgniteCall.gif)
 ![preview](./GoogleCalendarMirror.png)
+
