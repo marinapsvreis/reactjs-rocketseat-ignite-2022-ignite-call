@@ -34,6 +34,6 @@
   "devDependencies": {
     "@types/cookie": "^0.5.1",
     "prisma": "^4.15.0",
-    "typescript": "^5.2.0-dev.20230701"
+    "typescript": "5.1.6"
   }
 }
