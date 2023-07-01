@@ -41,3 +41,4 @@ obs2: It is also necessary to pay attention to migrations and schema configurati
 ## 🖥 Project Images
 
 ![preview](./IgniteCall.gif)
+![preview](./GoogleCalendarMirror.png)
