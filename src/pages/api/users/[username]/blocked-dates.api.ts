@@ -44,9 +44,9 @@ export default async function handler(
 
   const padMonth = String(month).padStart(2, '0')
 
-  const blockedDatesRaw: Array<{ day: number }> = await prisma.$queryRaw`
+  const blockedDatesRaw: Array<{ date: number }> = await prisma.$queryRaw`
     SELECT
-      EXTRACT(DAY FROM S.date) AS day,
+      EXTRACT(DAY FROM S.date) AS date,
       COUNT(S.date) AS amount,
       ((UTI.time_end_in_minutes - UTI.time_start_in_minutes) / 60) AS size
 
@@ -58,12 +58,13 @@ export default async function handler(
     WHERE S.user_id = ${user.id}
       AND DATE_FORMAT(S.date, "%Y-%m") = ${`${year}-${padMonth}`}
 
-    GROUP BY day, size
+    GROUP BY EXTRACT(DAY FROM S.DATE),
+      ((UTI.time_end_in_minutes - UTI.time_start_in_minutes) / 60)
 
     HAVING amount >= size
   `
 
-  const blockedDates = blockedDatesRaw.map((item) => item.day)
+  const blockedDates = blockedDatesRaw.map((item) => item.date)
 
   return res.json({ blockedWeekDays, blockedDates })
 }
