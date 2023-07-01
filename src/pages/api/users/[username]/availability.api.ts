@@ -69,15 +69,24 @@ export default async function handle(
     where: {
       user_id: user.id,
       date: {
-        gte: referenceDate.startOf('day').toDate(),
-        lte: referenceDate.endOf('day').toDate(),
+        gte: referenceDate.set('hour', startHour).toDate(), // greather than or equal
+        lte: referenceDate.set('hour', endHour).toDate(),
       },
     },
   })
- 
-  const availableTimes  = blockedTimes.map((schedules) => {
-    return schedules.date
+
+  const availableTimes = possibleTimes.filter((time) => {
+    const isTimeBlocked = blockedTimes.some(
+      (blockedTime) => blockedTime.date.getHours() === time,
+    )
+
+    const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
+
+    return !isTimeBlocked && !isTimeInPast
   })
 
-  return res.json({ possibleTimes, availableTimes, blockedTimes })
+  return res.json({
+    possibleTimes,
+    availableTimes,
+  })
 }
