@@ -79,5 +79,5 @@ export default async function handle(
     return schedules.date
   })
 
-  return res.json({ possibleTimes, availableTimes })
+  return res.json({ possibleTimes, availableTimes, blockedTimes })
 }
