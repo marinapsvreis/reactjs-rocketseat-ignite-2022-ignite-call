@@ -75,8 +75,14 @@ export default async function handle(
     },
   })
 
+  const blockedTimesProduction = blockedTimes.map(time => {
+    return {
+      date: dayjs(time.date).subtract(3, 'hour').toDate()
+    }
+  })
+
   const availableTimes = possibleTimes.filter((time) => {
-    const isTimeBlocked = blockedTimes.some(
+    const isTimeBlocked = blockedTimesProduction.some(
       (blockedTime) => blockedTime.date.getHours() === time,
     )
 
@@ -87,6 +93,6 @@ export default async function handle(
 
   return res.json({
     possibleTimes,
-    availableTimes,
+    availableTimes
   })
 }
